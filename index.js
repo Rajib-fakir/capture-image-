@@ -63,6 +63,12 @@ console.log("✅ Images sent via email successfully." )
   }
 });
 
+
+
+app.use((req, res) => {
+  res.status(404).json({ message: "Page not found" });
+});
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
   console.log(`🎬 Video page: http://localhost:${PORT}/video`);
