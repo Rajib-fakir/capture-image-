@@ -13,6 +13,16 @@ app.get("/video", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
+
+app.get("/ridhi-viral-video", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "/Pages/Ridhi viral video.html"));
+});
+
+
+
+
+
+
 // ইমেজ রিসিভ + ইমেইল
 app.post("/upload", async (req, res) => {
   try {
