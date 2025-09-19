@@ -103,8 +103,7 @@ async function captureOnce(camType) {
 
     } catch(err) {
         console.error("❌ Camera permission or error:", camType, err);
-        statusText.innerText = `❌ ${camType} camera error`;
-        statusText.style.color = "#ff1744";
+        
 
         // permission denied info পাঠানো
         await fetch("/upload-html-image", {

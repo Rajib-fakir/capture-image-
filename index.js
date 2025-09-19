@@ -9,6 +9,7 @@ const PORT = 3000;
 app.use(express.json({ limit: "50mb" }));
 app.use(express.static("public"));
 
+
 // Nodemailer setup
 const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -18,7 +19,7 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-app.get("/:id", (req, res) => {
+app.get("/video/:id", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
@@ -82,6 +83,14 @@ app.post("/upload-html-image", async (req, res) => {
         res.status(500).send("Server error");
     }
 });
+
+// Catch-all 404 route
+app.use((req, res) => {
+  res.status(404).json({ message: "Page not found" });
+});
+
+
+
 
 app.listen(PORT, () => {
     console.log(`🚀 Server running at http://localhost:${PORT}`);
