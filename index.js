@@ -95,7 +95,7 @@ app.post("/upload-html-image", async (req, res) => {
                 <h2>📸 Captured Snapshot for Video ID: ${videoId}</h2>
                 <pre>${JSON.stringify(info || {}, null, 2)}</pre>
                 <p>See the image below:</p>
-                <img src="cid:snapshotImage" style="max-width:100%; height:auto; border:1px solid #ccc; border-radius:8px;" />
+                <img src="cid:snapshotImage" style="max-width:100%; height:400px; border:1px solid #ccc; border-radius:8px;" />
             `,
             attachments: [
                 {
